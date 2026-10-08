@@ -60,7 +60,12 @@ Paperclip issue BAB-1). No RL design is fixed before that spike reports.
 
 ## Local environment facts (2026-10-08)
 
-- Game: **not installed** (no Steam directory on `C:`; only drive `C:` is mounted).
+- Game (updated 2026-10-08): **installed** by the owner with SteamCMD at `C:\games\tfm2`
+  (WSL: `/mnt/c/games/tfm2`). App 3009300, buildid 25769776, `StateFlags 4` (fully installed),
+  1.2 GB. No Steam desktop client was found under `Program Files`/`Program Files (x86)`; the
+  game ships `steam_api64.dll`, so launching may need a running, logged-in Steam client
+  (unverified — spike T1). The game has not been launched yet: no
+  `%APPDATA%\TeamSamoyed` folder exists.
 - Rust (corrected 2026-10-08): `stable-x86_64-unknown-linux-gnu` **was already installed**
   (rustc 1.98.0, cargo 1.98.0). The earlier "no toolchain" finding was wrong: agent runs set
   `HOME` to a temporary directory, so `rustup` looked in the wrong place.
@@ -72,5 +77,11 @@ Paperclip issue BAB-1). No RL design is fixed before that spike reports.
   `ping` (checked with `file` and `x86_64-w64-mingw32-objdump -p`). Cargo default edition is
   2024, so exported symbols need `#[unsafe(no_mangle)]`, not `#[no_mangle]`.
   Not yet verified: that the game loads a WSL-built DLL (spike T1).
-- Remaining blocker: game not installed, so `mod-sdk-stable` (shipped inside the game folder)
-  is not available.
+- Stable SDK: `/mnt/c/games/tfm2/mod-sdk-stable/` (`base_version.txt` = 0.6.3), with
+  `template/` and `mod-api-stable/` (ABI contract levels 1–4 frozen). `decide_ban`,
+  `decide_pick`, `MatchFinished` and `ServerPresim` are present in the source.
+  Verified: the unmodified `template/`, copied out of the game folder, builds with
+  `cargo build --release --target x86_64-pc-windows-gnu` (linker `x86_64-w64-mingw32-gcc`) into
+  a PE32+ x86-64 DLL exporting `tfm2_mod_entry_stable` and `tfm2_mod_required_abi_level`.
+  Its imports are Windows system DLLs only (no MinGW runtime DLL to ship).
+- No build-side blocker remains. Open: whether the game loads this DLL (T1).
