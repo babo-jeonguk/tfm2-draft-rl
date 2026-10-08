@@ -17,3 +17,10 @@ data/raw/
 
 .env
 .DS_Store
+
+# Game files and native build outputs (repository is public)
+*.exe
+*.dll
+*.pdb
+*.so
+target/

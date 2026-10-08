@@ -44,5 +44,10 @@ These rules apply to anyone working in this repository.
 
 ## Git
 
-- Small, focused commits with a message that says what changed and why.
+- Remote: `origin` = https://github.com/babo-jeonguk/tfm2-draft-rl (public).
+- Work on `main`. Small, focused commits with a message that says what changed
+  and why. Run `git pull --rebase` before you commit, and `git push` after.
 - Do not force-push. Do not rewrite history.
+- **This repository is public.** Never commit credentials, game binaries
+  (`.exe`, `.dll`), extracted game assets, save files, or proprietary game
+  data. Commit source, docs, and small result files only.
