@@ -61,5 +61,10 @@ Paperclip issue BAB-1). No RL design is fixed before that spike reports.
 ## Local environment facts (2026-10-08)
 
 - Game: **not installed** (no Steam directory on `C:`; only drive `C:` is mounted).
-- Rust: `rustup` / `cargo` exist in WSL at `~/.cargo/bin`, but **no toolchain is
-  installed** (`rustup default stable` not yet run).
+- Rust (corrected 2026-10-08): `stable-x86_64-unknown-linux-gnu` **was already installed**
+  (rustc 1.98.0, cargo 1.98.0). The earlier "no toolchain" finding was wrong: agent runs set
+  `HOME` to a temporary directory, so `rustup` looked in the wrong place.
+  Agent shells must export `RUSTUP_HOME=$HOME/.rustup CARGO_HOME=$HOME/.cargo`.
+- Windows target `x86_64-pc-windows-gnu`: installed 2026-10-08.
+- Cross-linker: **missing.** A minimal `cdylib` build for `x86_64-pc-windows-gnu` fails with
+  ``linker `x86_64-w64-mingw32-gcc` not found``. Needs `gcc-mingw-w64-x86-64` (apt, sudo).
