@@ -48,6 +48,11 @@ These rules apply to anyone working in this repository.
 - Work on `main`. Small, focused commits with a message that says what changed
   and why. Run `git pull --rebase` before you commit, and `git push` after.
 - Do not force-push. Do not rewrite history.
+- Commit author is `babo-jeonguk <dnrtoki@gmail.com>`, set in the repo
+  `.git/config`. Do not override it (no `-c user.*`, `--author`, or
+  `GIT_AUTHOR_*`). Older commits keep their agent addresses; that is expected.
+- Do not write personal machine paths in committed files. Use `~` for the
+  Linux home and `/mnt/c/Users/<user>` for the Windows user folder.
 - **This repository is public.** Never commit credentials, game binaries
   (`.exe`, `.dll`), extracted game assets, save files, or proprietary game
   data. Commit source, docs, and small result files only.
