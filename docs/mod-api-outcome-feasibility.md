@@ -66,5 +66,11 @@ Paperclip issue BAB-1). No RL design is fixed before that spike reports.
   `HOME` to a temporary directory, so `rustup` looked in the wrong place.
   Agent shells must export `RUSTUP_HOME=$HOME/.rustup CARGO_HOME=$HOME/.cargo`.
 - Windows target `x86_64-pc-windows-gnu`: installed 2026-10-08.
-- Cross-linker: **missing.** A minimal `cdylib` build for `x86_64-pc-windows-gnu` fails with
-  ``linker `x86_64-w64-mingw32-gcc` not found``. Needs `gcc-mingw-w64-x86-64` (apt, sudo).
+- Cross-linker: `x86_64-w64-mingw32-gcc` (GCC 13-win32) installed by the owner 2026-10-08.
+  Verified: a minimal `cdylib` (`#[unsafe(no_mangle)] extern "C" fn ping`) builds with
+  `cargo build --release --target x86_64-pc-windows-gnu` into a PE32+ x86-64 DLL that exports
+  `ping` (checked with `file` and `x86_64-w64-mingw32-objdump -p`). Cargo default edition is
+  2024, so exported symbols need `#[unsafe(no_mangle)]`, not `#[no_mangle]`.
+  Not yet verified: that the game loads a WSL-built DLL (spike T1).
+- Remaining blocker: game not installed, so `mod-sdk-stable` (shipped inside the game folder)
+  is not available.
