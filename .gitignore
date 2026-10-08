@@ -1,0 +1,19 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# Large or machine-local research artifacts
+checkpoints/
+*.pt
+*.ckpt
+data/raw/
+
+.env
+.DS_Store
